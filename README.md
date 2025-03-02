@@ -1,5 +1,9 @@
 # HeroVired_Python_Assessment
 
+# Name = Sagar Kumar
+# University = AISECT University, Hazaribag
+# Git = https://github.com/SagarKr1/HeroVired_Python_Assessment.git
+
 # Question :
 # You are developing a digital ecosystem for a multiplex cinema 
 # and entertainment hub called "CineTech Solutions." 
@@ -26,14 +30,17 @@
 #          ----> In the User Section, there are two subsections: Ticket and Wallet/Balance.
 #          ----> In the Wallet Section, the user can deposit, withdraw, and check the balance.
 
-#          ----> In the Ticket Section, there are two sub-sections: Book Ticket and View Ticket.
+#          ----> In the Ticket Section, there are two sub-sections: Book Ticket, View Ticket and Search Ticket by ID (Student ID or Ticket ID).
 #          ----> In the Book Ticket section, the user can add multiple tickets and also check whether they are a student or not.
 #          ----> In the View Ticket section, the user can see booked tickets. 
+#          ----> In the Search Section, the user can search for data using the student ID and ticket ID.
 
 #    Step 3 : 2. Admin (Admin Section Implementation) 
-#           ----> 
-#
-#
+#           ----> In the Admin section, there are two subsections: Employee and Sales.
+
+#           ----> In the Employee section, the user can add an employee, view employee data, sort employee data, and update salaries.
+
+#           ----> In the Sales section, the user can add sales data, view sales data, and analyze sales data.
 #
 #
 #

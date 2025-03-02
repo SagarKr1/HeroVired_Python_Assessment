@@ -6,6 +6,70 @@ import pandas as pd
 # Generating a random number .
 import random
 
+# Lambda function for updatings salary.
+update_salary = lambda salary, percentage: salary * (1 + percentage / 100)
+
+# Business Sales Analytics
+def sales_analytics():
+    tax_prices = []
+    for price in sales:
+        tax_prices.append(round(price * 1.1, 2))
+
+    high_value_transactions = []
+    for price in sales:
+        if price > 500:
+            high_value_transactions.append(price)
+
+    total_revenue = 0
+    for price in tax_prices:
+        total_revenue += price
+
+    # Print results
+    print("Tax-inclusive prices(assuming a tax rate of 10%):", tax_prices)
+    print("High-value transactions(above $500):", high_value_transactions)
+    print(f"Total Revenue after tax: ${total_revenue:.2f}")
+
+# View All Employee
+def employee_data():
+    global employee
+    
+    print("----------------------------------------")
+    print("              Employees Data          ")
+    print("----------------------------------------")
+    if len(employee) <= 0:
+        print("No Data Found")
+        return
+    
+    employee.sort(key=lambda emp: emp["salary"])
+    # print(employee)
+    df = pd.DataFrame(employee)
+    print(df)
+    return
+
+
+# sort employee based on salary
+def emp_salary(salary):
+    print("-----------------------------------------------")
+    print("              Filter employee data          ")
+    print("-----------------------------------------------")
+    print(salary)
+    newlist = []
+    if len(employee) <= 0:
+        print("No Data Found")
+        return
+
+    for emp in employee:
+        if emp["salary"] > salary:
+            newlist.append(emp)
+
+    if not newlist:
+        print("No Data Found")
+        return
+
+    df = pd.DataFrame(newlist)
+    print(df)
+    return
+
 
 # View All Ticket
 def All_Ticket():
@@ -38,7 +102,7 @@ def Ticket_ID(data):
     if not info:
         print("Data Not Found.\n")
     else:
-        df = pd.DataFrame([info])  
+        df = pd.DataFrame([info])
         print(f"{df}\n")
     return
 
@@ -108,6 +172,14 @@ def ticket_price(age):
 # Global Variables for Operation
 Balance = 0
 Ticket = []
+# Some predefined data for the employee.
+employee = [
+    {"Emp-ID": "101", "name": "Alice", "salary": 50000},
+    {"Emp-ID": "102", "name": "Bob", "salary": 60000},
+    {"Emp-ID": "103", "name": "Charlie", "salary": 70000},
+]
+# Some predefined data for the sales.
+sales = [200, 450, 700, 150, 900]
 
 # The main function of this program starts from here.
 while True:
@@ -362,9 +434,6 @@ while True:
                                                 print(
                                                     "---------------------------------------------------"
                                                 )
-                                                # print(
-                                                #     "S.No | Name | Age | Student | Price | Discount | Final Amount"
-                                                # )
                                                 no = 1
                                                 total = 0
                                                 for i in temp_ticket:
@@ -423,15 +492,150 @@ while True:
             case 2:  # This for Admin
                 while True:
                     print("Admin InterFace")
-                    print("1. Employee \n2. Sales Analytics \n7. Back")
+                    print("1. Employee \n2. Sales\n7. Back\n")
                     try:
                         a = int(input("Enter your choice: "))
                         match (a):
                             case 1:
-                                pass
+                                while True:
+                                    try:
+                                        print("\nEmployee")
+                                        print(
+                                            "1. Add Employee\n2. View Employees Data\n3. Sort Employees (Based on salary)\n4. Update Salary\n7. back\n"
+                                        )
+                                        num = int(input("Enter your choice: "))
+                                        match num:
+                                            case 1:  # Add Employee
+                                                print(
+                                                    "\nFill in the following details to add an employee."
+                                                )
+                                                emp_name = input(
+                                                    "Enter employee name: "
+                                                )
+                                                salary = float(
+                                                    input("Enter employee salary: ")
+                                                )
+                                                employee.append(
+                                                    {
+                                                        "Emp-ID": f"{random_number()}",
+                                                        "name": emp_name,
+                                                        "salary": salary,
+                                                    }
+                                                )
+
+                                            case 2:  # View Employee(All Employees Data)
+                                                employee_data()
+
+                                            case 3:  # Sort Employees (Based on salary)
+                                                while True:
+                                                    try:
+                                                        num = float(
+                                                            input("Enter salary: ")
+                                                        )
+                                                        emp_salary(num)
+                                                        break
+                                                    except ValueError:
+                                                        print(
+                                                            "\nInvalid input! Please enter a number.\n"
+                                                        )
+
+                                            case 4:  # Update Salary
+                                                print("Update Salary")
+                                                while True:
+                                                    try:
+                                                        print("Choose your option:")
+                                                        print("1. 5%\n2. 10%\n3. Manual Input")
+                                                        num=int(input("Enter your choice: "))
+                                                        df = pd.DataFrame(employee)
+                                                        if num==1:
+                                                            print("\n-------->Old Salary List")
+                                                            print(df)
+                                                            for emp in employee:
+                                                                emp['salary']=update_salary(emp['salary'],5)
+                                                            print("\n-------->Update Salary List")
+                                                            s = pd.DataFrame(employee)
+                                                            print(s)
+                                                            break
+                                                        elif num==2:
+                                                            print("\n-------->Old Salary List")
+                                                            print(df)
+                                                            for emp in employee:
+                                                                emp['salary']=update_salary(emp['salary'],10)
+                                                            print("\n-------->Update Salary List")
+                                                            s = pd.DataFrame(employee)
+                                                            print(s)
+                                                            break
+                                                        elif num==3:
+                                                            per=float(input("Enter a digit: "))
+                                                            print("\n-------->Old Salary List")
+                                                            print(df)
+                                                            for emp in employee:
+                                                                emp['salary']=update_salary(emp['salary'],per)
+                                                            print("\n-------->Update Salary List")
+                                                            s = pd.DataFrame(employee)
+                                                            print(s)
+                                                            break
+                                                        else:
+                                                            print("\nInvalid input! Please enter given Option.\n")
+                                                    except ValueError:
+                                                        print("\nInvalid input! Please enter a number.\n")
+
+                                            case 7:
+                                                break
+
+                                            case default:
+                                                print(
+                                                    "Invalid Input! Enter given Option.\n"
+                                                )
+                                    except ValueError:
+                                        print(
+                                            "\nInvalid input! Please enter a number.\n"
+                                        )
 
                             case 2:
-                                pass
+                                while True:
+                                    try:
+                                        print("\nSales")
+                                        print(
+                                            "1. Add Sale Data\n2. View Sales Data\n3. Analyze Sales Data\n7. back\n"
+                                        )
+                                        num = int(input("Enter your choice: "))
+                                        match num:
+                                            case 1:# Add sale data
+                                                while True:
+                                                    try:
+                                                        num=int(input("Enter Data in digit: "))
+                                                        sales.append(num)
+                                                        print("New Sales Data: ",end=" ")
+                                                        for i in sales:
+                                                            print(i,end=" ")
+                                                        print()
+                                                        break
+                                                    except ValueError:
+                                                        print("\nInvalid input! Please enter a number.\n")
+
+                                            case 2:# View Sales Data
+                                                print("Sales Data: ",end=" ")
+                                                for i in sales:
+                                                    print(i,end=" ")
+                                                print()
+                                                
+                                            case 3:# Analyze Sales Data
+                                                sales_analytics()
+                                                
+
+                                            case 7:
+                                                break
+
+                                            case default:
+                                                print(
+                                                    "Invalid Input! Enter given Option.\n"
+                                                )
+
+                                    except ValueError:
+                                        print(
+                                            "\nInvalid input! Please enter a number.\n"
+                                        )
 
                             case 7:
                                 break
