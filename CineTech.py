@@ -1,3 +1,8 @@
+# Name = Sagar Kumar
+# University = AISECT University, Hazaribag
+# Git = https://github.com/SagarKr1/HeroVired_Python_Assessment.git
+
+# Note : It is recommended to read the README.md file.
 # Read the README.md file to better understand the project's control flow.
 
 # Using the pandas library for formatting data.
@@ -8,6 +13,7 @@ import random
 
 # Lambda function for updatings salary.
 update_salary = lambda salary, percentage: salary * (1 + percentage / 100)
+
 
 # Business Sales Analytics
 def sales_analytics():
@@ -29,17 +35,18 @@ def sales_analytics():
     print("High-value transactions(above $500):", high_value_transactions)
     print(f"Total Revenue after tax: ${total_revenue:.2f}")
 
+
 # View All Employee
 def employee_data():
     global employee
-    
+
     print("----------------------------------------")
     print("              Employees Data          ")
     print("----------------------------------------")
     if len(employee) <= 0:
         print("No Data Found")
         return
-    
+
     employee.sort(key=lambda emp: emp["salary"])
     # print(employee)
     df = pd.DataFrame(employee)
@@ -84,7 +91,7 @@ def All_Ticket():
         total = total + i["Final Amount"]
     df = pd.DataFrame(Ticket)
     print(df)
-    print(f"Total Amount: {total}")
+    print(f"Total Amount: {round(total,2)}")
     return
 
 
@@ -117,9 +124,9 @@ def student_discount(grade):
     if grade >= 95:
         return 5 / 100
     elif grade >= 85 and grade < 95:
-        return 3 / 100
+        return 4 / 100
     elif grade >= 75 and grade < 85:
-        return 2 / 100
+        return 3 / 100
     elif grade >= 65 and grade < 75:
         return 2 / 100
     else:
@@ -154,6 +161,27 @@ def withdraw(sub_balance):
     Balance = round(Balance - sub_balance, 2)
 
 
+# View All Ticket Price
+def discount_price():
+    print("\n           Ticket Price")
+    print("---------------------------------------")
+    print("Age Group   | Ticket Price")
+    print(" 0-5        |     Free")
+    print(" 6-11       |      $5")
+    print(" 12-17      |      $8")
+    print(" 18-59      |      $12")
+    print(" 60-above   |      $7")
+
+    print("\n   Special discount for students")
+    print("---------------------------------------")
+    print("Grade       |   Discount")
+    print(" above 95   |     5%")
+    print(" 85-94      |     4%")
+    print(" 75-84      |     3%")
+    print(" 65-74      |     2%")
+    print(" below 64   |     0%")
+
+
 # Find the ticket price based on age.
 def ticket_price(age):
     print("Your age is ", age)
@@ -184,15 +212,13 @@ sales = [200, 450, 700, 150, 900]
 # The main function of this program starts from here.
 while True:
     # description
-    print(
-        "\nIf you want to book a ticket and manage wallet, choose 1 (User). If you want to manage employee salaries and view business sales, choose 2 (Admin)."
-    )
+    print("\nPlease read the README.md file.")
     print("Choose any option")
 
     print(
         "1. User (Ticket Booking, Financial Transactions, and Student Discounts) \n2. Admin (Employee Salary Management and Business Sales Analytics)\n9. Exit\n"
     )
-    # Error Handling : if someone enter any text or any character
+    # Error Handling
     try:
         # user input for any option
         n = int(input("Enter you choice: "))
@@ -214,7 +240,7 @@ while True:
                                         )
                                         B = int(input("Enter Your Choice: "))
                                         match (B):
-                                            case 1:  # This is for Deposit Balance
+                                            case 1:  # Deposit Balance
                                                 print("\nDeposit Balance")
                                                 try:
                                                     amount = float(
@@ -222,6 +248,7 @@ while True:
                                                             "Enter the amount to add to the balance: "
                                                         )
                                                     )
+                                                    # function call
                                                     deposit(amount)
                                                     print(
                                                         f"Your current Balance is ${Balance}.\n"
@@ -239,6 +266,7 @@ while True:
                                                             "Enter the amount to withdraw from the balance: "
                                                         )
                                                     )
+                                                    # function call
                                                     withdraw(amount)
                                                     print(
                                                         f"Your current Balance is ${Balance}."
@@ -277,11 +305,14 @@ while True:
                                     try:
                                         print("\nChoose an option:")
                                         print(
-                                            "1. Book Ticket\n2. View Ticket\n3. Search Ticket by ID (Student ID or Ticket ID).\n7. Back\n"
+                                            "0. View Ticket Price(discount and price)\n1. Book Ticket\n2. View Ticket\n3. Search Ticket by ID (Student ID or Ticket ID).\n7. Back\n"
                                         )
                                         check_t = int(input("Enter your choose: "))
                                         match (check_t):
-                                            case 1:
+                                            case 0:# show discount and price
+                                                discount_price()
+
+                                            case 1:  # Book Ticket
                                                 t_num = int(
                                                     input(
                                                         "Enter the number of tickets you want to book: "
@@ -297,6 +328,7 @@ while True:
                                                     )
                                                     name = input("Enter name: ")
                                                     age = int(input("Enter age: "))
+                                                    # function call
                                                     price = ticket_price(age)
                                                     student = "NOT"
                                                     grade = 0
@@ -311,7 +343,7 @@ while True:
                                                         check_stud = int(
                                                             input("Student or Not? ")
                                                         )
-
+                                                        # if user will be student
                                                         if check_stud == 1:
                                                             student = "YES"
                                                             while True:
@@ -361,15 +393,18 @@ while True:
                                                             print(
                                                                 "Enter Marks of following Subject: "
                                                             )
+                                                            # Generating grade
                                                             grades_input = input(
                                                                 "Enter grades separated by commas: "
                                                             )
+                                                            # seprating grade by comma (,)
                                                             grades = [
                                                                 int(grade.strip())
                                                                 for grade in grades_input.split(
                                                                     ","
                                                                 )
                                                             ]
+                                                            # sum of all grades
                                                             average_grade = sum(
                                                                 grades
                                                             ) / len(grades)
@@ -380,10 +415,12 @@ while True:
                                                                 f"Total percentage is {grade}%."
                                                             )
                                                             # print(grade)
+                                                            # function call
                                                             st_dis = student_discount(
                                                                 grade
                                                             )
                                                             # print("Discount: ", st_dis)
+                                                            # Calculation discount
                                                             if st_dis > 0:
                                                                 discount = (
                                                                     price * st_dis
@@ -398,6 +435,7 @@ while True:
                                                                 # )
 
                                                         final_price = price - discount
+                                                    # Generating ticket data.
                                                     if check_stud == 1:
                                                         temp_ticket.append(
                                                             {
@@ -436,25 +474,36 @@ while True:
                                                 )
                                                 no = 1
                                                 total = 0
+                                                # Calculation of the total ticket price.
                                                 for i in temp_ticket:
                                                     total = total + i["Final Amount"]
+                                                # This will Show the Bill of Ticket
                                                 df = pd.DataFrame(temp_ticket)
                                                 print(df)
-                                                print(f"Total Amount: ${total}\n")
+                                                print(
+                                                    f"Total Amount: ${round(total,2)}\n"
+                                                )
+                                                # If the balance is insufficient to pay the ticket price.
                                                 if Balance < total:
                                                     print(
                                                         "Insufficient balance. Please add funds to your wallet, then try booking the ticket again."
                                                     )
                                                     continue
+                                                # function call
                                                 withdraw(total)
                                                 Ticket.extend(temp_ticket)
 
-                                            case 2:
+                                            case 2:  # View Ticket
+                                                # function call
                                                 All_Ticket()
 
-                                            case 3:
+                                            case (
+                                                3
+                                            ):  # Search Ticket by ID (Student ID or Ticket ID).
                                                 if len(Ticket) <= 0:
-                                                    print("Empty Data Found")
+                                                    print(
+                                                        "\n--------------->Empty Data Found"
+                                                    )
                                                     continue
                                                 data = input(
                                                     "Enter ID(Student ID or Ticket ID): "
@@ -468,6 +517,7 @@ while True:
                                                 print(
                                                     "------------------------------------"
                                                 )
+                                                # function call
                                                 Ticket_ID(data)
                                             case 7:
                                                 break
@@ -522,6 +572,9 @@ while True:
                                                         "salary": salary,
                                                     }
                                                 )
+                                                print(
+                                                    "Employee data has been added successfully.\n"
+                                                )
 
                                             case 2:  # View Employee(All Employees Data)
                                                 employee_data()
@@ -544,41 +597,77 @@ while True:
                                                 while True:
                                                     try:
                                                         print("Choose your option:")
-                                                        print("1. 5%\n2. 10%\n3. Manual Input")
-                                                        num=int(input("Enter your choice: "))
+                                                        print(
+                                                            "1. 5%\n2. 10%\n3. Manual Input"
+                                                        )
+                                                        num = int(
+                                                            input("Enter your choice: ")
+                                                        )
                                                         df = pd.DataFrame(employee)
-                                                        if num==1:
-                                                            print("\n-------->Old Salary List")
+                                                        if num == 1:
+                                                            print(
+                                                                "\n-------->Old Salary List"
+                                                            )
                                                             print(df)
                                                             for emp in employee:
-                                                                emp['salary']=update_salary(emp['salary'],5)
-                                                            print("\n-------->Update Salary List")
+                                                                emp["salary"] = (
+                                                                    update_salary(
+                                                                        emp["salary"], 5
+                                                                    )
+                                                                )
+                                                            print(
+                                                                "\n-------->Update Salary List"
+                                                            )
                                                             s = pd.DataFrame(employee)
                                                             print(s)
                                                             break
-                                                        elif num==2:
-                                                            print("\n-------->Old Salary List")
+                                                        elif num == 2:
+                                                            print(
+                                                                "\n-------->Old Salary List"
+                                                            )
                                                             print(df)
                                                             for emp in employee:
-                                                                emp['salary']=update_salary(emp['salary'],10)
-                                                            print("\n-------->Update Salary List")
+                                                                emp["salary"] = (
+                                                                    update_salary(
+                                                                        emp["salary"],
+                                                                        10,
+                                                                    )
+                                                                )
+                                                            print(
+                                                                "\n-------->Update Salary List"
+                                                            )
                                                             s = pd.DataFrame(employee)
                                                             print(s)
                                                             break
-                                                        elif num==3:
-                                                            per=float(input("Enter a digit: "))
-                                                            print("\n-------->Old Salary List")
+                                                        elif num == 3:
+                                                            per = float(
+                                                                input("Enter a digit: ")
+                                                            )
+                                                            print(
+                                                                "\n-------->Old Salary List"
+                                                            )
                                                             print(df)
                                                             for emp in employee:
-                                                                emp['salary']=update_salary(emp['salary'],per)
-                                                            print("\n-------->Update Salary List")
+                                                                emp["salary"] = (
+                                                                    update_salary(
+                                                                        emp["salary"],
+                                                                        per,
+                                                                    )
+                                                                )
+                                                            print(
+                                                                "\n-------->Update Salary List"
+                                                            )
                                                             s = pd.DataFrame(employee)
                                                             print(s)
                                                             break
                                                         else:
-                                                            print("\nInvalid input! Please enter given Option.\n")
+                                                            print(
+                                                                "\nInvalid input! Please enter given Option.\n"
+                                                            )
                                                     except ValueError:
-                                                        print("\nInvalid input! Please enter a number.\n")
+                                                        print(
+                                                            "\nInvalid input! Please enter a number.\n"
+                                                        )
 
                                             case 7:
                                                 break
@@ -601,28 +690,35 @@ while True:
                                         )
                                         num = int(input("Enter your choice: "))
                                         match num:
-                                            case 1:# Add sale data
+                                            case 1:  # Add sale data
                                                 while True:
                                                     try:
-                                                        num=int(input("Enter Data in digit: "))
+                                                        num = int(
+                                                            input(
+                                                                "Enter Data in digit: "
+                                                            )
+                                                        )
                                                         sales.append(num)
-                                                        print("New Sales Data: ",end=" ")
+                                                        print(
+                                                            "New Sales Data: ", end=" "
+                                                        )
                                                         for i in sales:
-                                                            print(i,end=" ")
+                                                            print(i, end=" ")
                                                         print()
                                                         break
                                                     except ValueError:
-                                                        print("\nInvalid input! Please enter a number.\n")
+                                                        print(
+                                                            "\nInvalid input! Please enter a number.\n"
+                                                        )
 
-                                            case 2:# View Sales Data
-                                                print("Sales Data: ",end=" ")
+                                            case 2:  # View Sales Data
+                                                print("Sales Data: ", end=" ")
                                                 for i in sales:
-                                                    print(i,end=" ")
+                                                    print(i, end=" ")
                                                 print()
-                                                
-                                            case 3:# Analyze Sales Data
+
+                                            case 3:  # Analyze Sales Data
                                                 sales_analytics()
-                                                
 
                                             case 7:
                                                 break
